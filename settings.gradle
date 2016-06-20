@@ -1,0 +1,4 @@
+include 'ratpack-rabbit-producer'
+
+rootProject.name='ratpack-rabbit-parent'
+
