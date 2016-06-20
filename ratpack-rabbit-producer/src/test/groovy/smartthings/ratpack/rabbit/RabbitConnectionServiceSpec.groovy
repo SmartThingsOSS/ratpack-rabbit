@@ -65,7 +65,7 @@ class RabbitConnectionServiceSpec extends Specification {
 		thrown(ConnectException)
 	}
 
-	@IgnoreF
+	@Ignore
 	def "Can start and stop as expected"() {
 		given:
 		RabbitProducerModule.Config config = new RabbitProducerModule.Config()
