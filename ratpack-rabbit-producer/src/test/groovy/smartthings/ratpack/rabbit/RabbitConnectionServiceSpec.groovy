@@ -13,6 +13,10 @@ class RabbitConnectionServiceSpec extends Specification {
 	@AutoCleanup
 	ExecHarness harness = ExecHarness.harness()
 
+	String getTestRabbitServer() {
+		return System.getenv("RABBIT_SERVER") ?: '127.0.0.1'
+	}
+
 	def "Fail on invalid config"() {
 		given:
 		RabbitConnectionService service
@@ -65,11 +69,15 @@ class RabbitConnectionServiceSpec extends Specification {
 		thrown(ConnectException)
 	}
 
-	@Ignore
 	def "Can start and stop as expected"() {
 		given:
 		RabbitProducerModule.Config config = new RabbitProducerModule.Config()
 		RabbitConnectionService service
+		config.setHostName(getTestRabbitServer())
+		config.setUsername("guest")
+		config.setPassword("guest")
+		config.setPortNumber(5672)
+		config.setVirtualHost("/")
 
 		when:
 		harness.run {
