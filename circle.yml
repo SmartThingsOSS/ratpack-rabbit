@@ -2,6 +2,8 @@ machine:
   java:
     version:
       oraclejdk8
+  environment:
+    RABBIT_SERVER: 'localhost'
 
 dependencies:
   override:
