@@ -9,6 +9,7 @@ import ratpack.service.StartEvent;
 import ratpack.service.StopEvent;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class RabbitConnectionService implements Service {
 
@@ -37,8 +38,8 @@ public class RabbitConnectionService implements Service {
 		connection.close(config.getCloseTimeoutMilliseconds());
 	}
 
-	public Channel getNewChannel() throws IOException {
-		return connection.createChannel();
+	public Optional<Channel> getNewChannel() throws IOException {
+		return Optional.ofNullable(connection.createChannel());
 	}
 
 }
