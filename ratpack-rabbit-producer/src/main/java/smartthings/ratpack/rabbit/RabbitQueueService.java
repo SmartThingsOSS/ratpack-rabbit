@@ -20,13 +20,12 @@ abstract public class RabbitQueueService implements Service {
 		this.rabbitConnectionService = rabbitConnectionService;
 	}
 
-	abstract ChannelConfig getChannelConfig();
+	public abstract ChannelConfig getChannelConfig();
 
 	@Override
 	public void onStart(StartEvent event) throws Exception {
-		channel = rabbitConnectionService.getNewChannel();
+		channel = rabbitConnectionService.getNewChannel().get();
 		ChannelConfig config = getChannelConfig();
-
 		channel.queueDeclare(config.getQueueName(), config.getDurable(), config.getExclusive(), config.getAutoDelete(), config.getArguments());
 	}
 
